@@ -24,7 +24,7 @@ const App: FC<Props> = ({ spec }) => {
           </h1>
         </div>
         <div className="flex items-center">
-          <a href="https://github.com/developer-overheid-nl/oas-generator" target="_blank">
+          <a href="https://github.com/developer-overheid-nl/repo-generator" target="_blank">
             <GitHubIcon />
           </a>
         </div>

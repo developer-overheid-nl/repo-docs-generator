@@ -1,10 +1,10 @@
 import type { RulesetDefinition } from '@stoplight/spectral-core';
 import { schema } from '@stoplight/spectral-functions';
 
-export const GEN_URI = 'https://developer-overheid-nl.github.io/oas-generator';
+export const GEN_URI = 'https://developer-overheid-nl.github.io/repo-generator';
 
 const generatorSyntax: RulesetDefinition = {
-  documentationUrl: 'https://developer-overheid-nl.github.io/oas-generator',
+  documentationUrl: 'https://developer-overheid-nl.github.io/repo-generator',
   description: 'OAS Generator syntax',
   rules: {
     'title-required': {

@@ -1,4 +1,4 @@
-import { Rulesets } from '../../../spectral';
+import { Rulesets } from '../../../jsonSchemaLinter';
 import generatorSyntax, { GEN_URI } from './generatorSyntax';
 
 const rulesets: Rulesets = {

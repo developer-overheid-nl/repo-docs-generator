@@ -1,0 +1,13 @@
+{
+  "projectTitel": "DON API v1",
+  "projectBeschrijving": "API of developer.overheid.nl (Developer Overheid).",
+  "contacten": [{
+    "name": "Team Developer Overheid",
+    "email": "developer.overheid@geonovum.nl",
+    "url": "https://developer.overheid.nl"
+  }],
+  "opdrachtgever":"Developer.overheid.nl",
+  "securityEmail":"security@developer.overheid.nl",
+  "issueLink":"https://github.com/developer-overheid-nl/repo-generator/issues/new",
+  "gitUrl":"https://github.com/developer-overheid-nl/don-site.git"
+}

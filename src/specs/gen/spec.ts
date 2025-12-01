@@ -2,8 +2,9 @@ import { APPLICATION_JSON_TYPE, APPLICATION_OPENAPI_JSON_3_0_TYPE } from '../../
 import { spectralLinter } from '../../spectral';
 import { Spec, SpecLinter, SpecResponseMapper } from '../../types';
 import { handleResponse, handleResponseJson } from '../../util';
-import example from './example.json';
+import example from '../../inputExample.json';
 import rulesets from './rulesets';
+import { ajvLinter } from '../../jsonSchemaLinter';
 
 const responseMapper: SpecResponseMapper = async responseText => {
   let document;
@@ -56,15 +57,15 @@ const responseMapper: SpecResponseMapper = async responseText => {
   return Promise.resolve({ content: responseText });
 };
 
-const linterName = (confClass: string) => confClass.replace('http://www.opengis.net/spec/', '');
+const linterName = "InputJSON Linter"
 
 const spec: Spec = {
   name: 'Genrator',
   slug: 'gen',
   example: JSON.stringify(example, undefined, 2),
   linters: Object.entries(rulesets).map(entry => ({
-    name: linterName(entry[0]),
-    linter: spectralLinter(linterName(entry[0]), entry[1]),
+    name: linterName,
+    linter: ajvLinter(linterName),
   })),
   responseMapper,
 };

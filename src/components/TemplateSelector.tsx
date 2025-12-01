@@ -1,24 +1,25 @@
 import { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import specs from '../specs';
 
 interface Props {
   className?: string;
 }
 
-const SpecSelector: FC<Props> = ({ className }) => {
+const TemplateSelector: FC<Props> = ({ className }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const templates = ["SECURITY.md","CODE_OF_CONDUCT.md","LICENCE.md","publiccode.yml","README.md"];
+
   return (
     <select value={location.pathname} onChange={event => navigate(event.target.value)} className={className}>
-      {specs.map(spec => (
-        <option key={spec.slug} value={`/${spec.slug}`}>
-          {spec.name}
+      {templates.map(templateName => (
+        <option key={templateName} value={`/${templateName}`}>
+          {templateName}
         </option>
       ))}
     </select>
   );
 };
 
-export default SpecSelector;
+export default TemplateSelector;

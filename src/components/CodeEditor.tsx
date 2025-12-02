@@ -6,53 +6,49 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { Spec, SpecInput, SpecLinter } from '../types';
 import { formatDocument, groupBySource, handleResponse } from '../util';
 import { populateOpenApiSpec } from '../populateOas';
+import parseOutput, { fetchParsedOutput } from '../populateOutputFile';
+
+import { Button } from '@rijkshuisstijl-community/components-react'; // React-component importeren
 
 const EXTENSIONS: Extension[] = [json(), linter(jsonParseLinter()), lintGutter()];
 
 interface Props {
   spec: Spec;
   uri?: string;
+  gitTemplate: string | null;
 }
 
-const CodeEditor: FC<Props> = ({ spec, uri }) => {
+const CodeEditor: FC<Props> = ({ spec, uri, gitTemplate }) => {
   const [content, setContent] = useState('{}');
   const [output, setOutput] = useState('{}');
   const [checking, setChecking] = useState(false);
   const [error, setError] = useState<string>();
   const [linters, setLinters] = useState<SpecLinter[]>([]);
   const [diagnostics, setDiagnostics] = useState<{ [key: string]: Diagnostic[] }>({});
+  const [copied, setCopied] = useState(false);
   const codeMirrorRef = useRef<ReactCodeMirrorRef>(null);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   useEffect(() => {
     setContent(spec.example);
-    // setOutput(populateOpenApiSpec(spec.example));
     setLinters(spec.linters);
   }, [spec]);
 
   useEffect(() => {
-    if (uri) {
-      setError(undefined);
-      setChecking(true);
-      setDiagnostics({});
-
-      fetch(uri)
-        .then(response => handleResponse(response, uri))
-        .then(responseText =>
-          spec.responseMapper //
-            ? spec.responseMapper(responseText)
-            : Promise.resolve({ content: responseText })
-        )
-        .then((input: SpecInput) => {
-          setChecking(false);
-          setContent(formatDocument(input.content));
-          setLinters(input.linters ?? spec.linters);
-        })
-        .catch(error => {
-          setChecking(false);
-          setError(error.message);
-        });
+    if (gitTemplate) {  
+      const result = parseOutput(content, gitTemplate);
+      setOutput(result);
     }
-  }, [uri, spec]);
+  }, [gitTemplate, content]);
 
   return (
     <div className="flex h-full">
@@ -79,24 +75,28 @@ const CodeEditor: FC<Props> = ({ spec, uri }) => {
 
             if (viewUpdate.docChanged) {
               setContent(viewUpdate.state.doc.toString());
-              setOutput(populateOpenApiSpec(viewUpdate.state.doc.toString()));
+              // setOutput(populateOpenApiSpec(viewUpdate.state.doc.toString()));
               setChecking(true);
             }
           }}
         />
       </div>
       <div className="w-[50%] min-w-[400px] overflow-auto">
-        {checking && <p>Generating...</p>}
+        {checking && <p>        <div className="error-container m-2">Genereren...</div></p>}
         {!checking && error && <div className="mb-4 p-4 bg-red-500 text-white rounded-sm shadow-lg">{error}</div>}
         {!checking &&
           !error &&
           linters.map(linter => (
             <div key={linter.name}>
               {!diagnostics[linter.name] ? (
-                <ReactCodeMirror ref={codeMirrorRef} value={output} extensions={[...EXTENSIONS]} readOnly={true} />
+                <div className="relative">
+                  <ReactCodeMirror ref={codeMirrorRef} value={output} extensions={[...EXTENSIONS]} readOnly={true} />
+                  <Button appearance="primary-action-button" onClick={handleCopy} className="fixed top-14 right-6">{copied ? '✓ Gekopieërd!' : 'Kopiëren'}</Button>
+                </div>
               ) : (
                 <>
-                  <div className="mb-4 p-4 bg-red-500 text-white rounded-sm shadow-lg">
+                <div className="error-container m-2">
+                  <div className="mb-2 p-4 bg-red-500 text-white rounded-sm shadow-lg">
                     [{linter.name}] Found {diagnostics[linter.name].length} linting error(s).
                   </div>
                   <ul>
@@ -128,6 +128,7 @@ const CodeEditor: FC<Props> = ({ spec, uri }) => {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </>
               )}
             </div>

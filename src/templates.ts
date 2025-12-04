@@ -1,3 +1,2 @@
-const templates = ["SECURITY.md","CODE_OF_CONDUCT.md","LICENCE.md","publiccode.yml","README.md"];
+const templates = ["publiccode.yml","SECURITY.md","CODE_OF_CONDUCT.md","LICENCE.md","README.md"];
 export default templates;
-

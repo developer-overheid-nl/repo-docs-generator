@@ -24,7 +24,7 @@ const CodeEditor: FC<Props> = ({ spec, gitTemplate }) => {
   const [inputJson, setInputJson] = useState('{}');
   const [output, setOutput] = useState('{}');
   const [checking, setChecking] = useState(false);
-  const [error] = useState<string>();
+  const [error, setError] = useState<string>();
   const [linters, setLinters] = useState<SpecLinter[]>([]);
   const [diagnostics, setDiagnostics] = useState<{ [key: string]: Diagnostic[] }>({});
   const [copied, setCopied] = useState(false);
@@ -55,9 +55,21 @@ const CodeEditor: FC<Props> = ({ spec, gitTemplate }) => {
   }, [spec]);
 
   useEffect(() => {
-    if (gitTemplate) {  
-      const result = parseOutput(inputJson, gitTemplate);
-      setOutput(result);
+    if (gitTemplate) {
+      try {
+        // Validate JSON integrity
+        JSON.parse(inputJson);
+
+        const result = parseOutput(inputJson, gitTemplate);
+    
+        setChecking(false);
+        setOutput(result);
+        setError(undefined);
+        
+      } catch (err) {
+        setChecking(false);
+        setError(err instanceof Error ? err.message : 'Failed to parse input JSON');
+      }
     }
   }, [gitTemplate, inputJson]);
 
@@ -69,9 +81,9 @@ const CodeEditor: FC<Props> = ({ spec, gitTemplate }) => {
           value={inputJson}
           extensions={[...INPUT_EDITOR_EXTENSIONS, ...linters.map(l => l.linter), EditorView.lineWrapping]}
           onUpdate={viewUpdate => {
-            if (error) {
-              return;
-            }
+            // if (error) {
+            //   return;
+            // }
 
             viewUpdate.transactions.forEach(transaction => {
               transaction.effects.forEach(effect => {
@@ -93,8 +105,8 @@ const CodeEditor: FC<Props> = ({ spec, gitTemplate }) => {
         />
       </div>
       <div className="w-[50%] min-w-[400px] max-w-[50%] overflow-auto">
-        {checking && <p><div className="error-container m-2">Genereren...</div></p>}
-        {!checking && error && <div className="mb-4 p-4 bg-red-500 text-white rounded-sm shadow-lg">{error}</div>}
+        {checking && <div className="error-container m-2"><p>Genereren...</p></div>}
+        {!checking && error && <div className="error-container m-2"><div className="mb-4 p-4 bg-red-500 text-white rounded-sm shadow-lg">{error}</div></div>}
         {!checking &&
           !error &&
           linters.map(linter => (

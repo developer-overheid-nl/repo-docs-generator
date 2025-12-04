@@ -20,6 +20,9 @@ importers:
       '@codemirror/lint':
         specifier: ^6.8.5
         version: 6.9.2
+      '@codemirror/view':
+        specifier: ^6.38.8
+        version: 6.38.8
       '@rijkshuisstijl-community/components-css':
         specifier: ^9.0.0
         version: 9.0.0(@amsterdam/design-system-assets@1.0.0)(@amsterdam/design-system-tokens@1.0.1)

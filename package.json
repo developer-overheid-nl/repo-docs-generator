@@ -15,6 +15,7 @@
     "@codemirror/lang-markdown": "^6.5.0",
     "@codemirror/language": "^6.11.0",
     "@codemirror/lint": "^6.8.5",
+    "@codemirror/view": "^6.38.8",
     "@rijkshuisstijl-community/components-css": "^9.0.0",
     "@rijkshuisstijl-community/components-react": "^8.0.0",
     "@rijkshuisstijl-community/design-tokens": "^10.0.0",

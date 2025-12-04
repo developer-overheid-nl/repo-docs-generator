@@ -34,9 +34,9 @@ const CodeEditor: FC<Props> = ({ spec, gitTemplate }) => {
 
   const outputExtensions = useMemo(() => {
     if (location.pathname?.endsWith('.yml') || location.pathname?.endsWith('.yaml')) {
-      return [yaml()];
+      return [yaml(), lintGutter(), EditorView.lineWrapping];
     }
-    return [markdown()];
+    return [markdown(), lintGutter(), EditorView.lineWrapping];
   }, [location]);
 
   const handleCopy = async () => {
@@ -81,9 +81,6 @@ const CodeEditor: FC<Props> = ({ spec, gitTemplate }) => {
           value={inputJson}
           extensions={[...INPUT_EDITOR_EXTENSIONS, ...linters.map(l => l.linter), EditorView.lineWrapping]}
           onUpdate={viewUpdate => {
-            // if (error) {
-            //   return;
-            // }
 
             viewUpdate.transactions.forEach(transaction => {
               transaction.effects.forEach(effect => {

@@ -1,12 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import templates from '../templates';
 
 interface Props {
   className?: string;
   setGitTemplate: (template: string | null) => void;
 }
-
-export const templateRoutes = ["SECURITY.md","CODE_OF_CONDUCT.md","LICENCE.md","publiccode.yml","README.md"];
 
 const TemplateSelector: FC<Props> = ({ className, setGitTemplate }) => {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const TemplateSelector: FC<Props> = ({ className, setGitTemplate }) => {
 
   return (
     <select value={location.pathname} onChange={event => navigate(event.target.value)} className={className}>
-      {templateRoutes.map(templateName => (
+      {templates.map(templateName => (
         <option key={templateName} value={`/${templateName}`}>
           {templateName}
         </option>

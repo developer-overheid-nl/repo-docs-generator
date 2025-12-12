@@ -22,6 +22,10 @@
   "url": "https://github.com/developer-overheid-nl/don-site.git",
   "landingURL": "https://developer.overheid.nl",
   "softwareType": "standalone/web",
+  "organisation":{
+    "name":"Geonovum",
+    "url":"https://geonovum.nl"
+  },
   "platforms": [
     "web"
   ],

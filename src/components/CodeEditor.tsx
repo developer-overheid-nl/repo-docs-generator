@@ -10,9 +10,10 @@ import { useLocation } from 'react-router-dom';
 import { Spec, SpecLinter } from '../types';
 import { groupBySource } from '../util';
 import parseOutput from '../populateOutputFile';
+import { jsonSchemaAutocomplete } from '../extensions/jsonSchemaAutocomplete';
 
 
-const INPUT_EDITOR_EXTENSIONS: Extension[] = [json(), linter(jsonParseLinter()), lintGutter()];
+const INPUT_EDITOR_EXTENSIONS: Extension[] = [json(), linter(jsonParseLinter()), lintGutter(), jsonSchemaAutocomplete];
 
 interface Props {
   spec: Spec;

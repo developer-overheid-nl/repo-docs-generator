@@ -1,0 +1,54 @@
+publiccodeYmlVersion: "0.5"
+
+name: Repo generator
+url: https://github.com/developer-overheid-nl/repo-docs-generator
+landingURL: https://developer-overheid-nl.github.io/repo-docs-generator/
+
+softwareType: standalone/web
+
+platforms:
+  - web
+
+developmentStatus: development
+
+description:
+  nl:
+    shortDescription: >-
+      Een webtool om repositories te voorzien van een publiccode.yml en de
+      juiste markdown files.
+    longDescription: |
+      De Repo Generator is een webapplicatie waarmee ontwikkelaars eenvoudig
+      een publiccode.yml bestand kunnen genereren dat voldoet aan de
+      Nederlandse standaard. Daarnaast kunnen ook andere benodigde bestanden
+      voor een gezonde en toegankelijke repository worden gegenereerd.
+  en:
+    shortDescription: >-
+      A web tool to provide repositories with a publiccode.yml and the correct
+      markdown files.
+    longDescription: |
+      The Repo Generator is a web application that allows developers to easily
+      generate a publiccode.yml file that complies with the Dutch standard. In
+      addition, other required files for a healthy and accessible repository
+      can also be generated.
+
+legal:
+  license: EUPL-1.2
+  mainCopyrightOwner: Geonovum
+
+intendedAudience:
+  countries:
+    - NL
+  scope:
+    - government
+
+localisation:
+  availableLanguages:
+    - nl
+    - en
+  localisationReady: true
+
+maintenance:
+  type: community
+  contacts:
+    - name: developer.overheid.nl
+      email: info@geonovum.nl

@@ -2,7 +2,7 @@
 
 This repository contains a web-app which generates different files that are needed for a healthy and accessible repository.
 
-URL: https://developer-overheid-nl.github.io/repo-generator/
+URL: https://developer-overheid-nl.github.io/repo-docs-generator/
 
 ## Development
 

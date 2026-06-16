@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "generate": "node src/cli.ts"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.0",

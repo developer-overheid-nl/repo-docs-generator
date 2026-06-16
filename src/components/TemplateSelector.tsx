@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import templates from '../templates';
+import { templateUrl } from '../templateSource';
 
 interface Props {
   className?: string;
@@ -13,7 +14,7 @@ const TemplateSelector: FC<Props> = ({ className, setGitTemplate }) => {
 
     useEffect(() => {
 
-      const url = `https://raw.githubusercontent.com/developer-overheid-nl/repository-template/refs/heads/main/templates${location.pathname}`;
+      const url = templateUrl(location.pathname.replace(/^\//, ''));
 
       fetch(url)
         .then(response => response.text())

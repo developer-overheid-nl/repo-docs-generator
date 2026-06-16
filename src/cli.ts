@@ -7,6 +7,7 @@ import addFormats from 'ajv-formats';
 import parseOutput from './populateOutputFile.ts';
 import templates from './templates.ts';
 import { templateUrl } from './templateSource.ts';
+import schema from '../input_json_schema.json' with { type: 'json' };
 
 const HELP = `Repository Docs Generator - CLI
 
@@ -90,12 +91,10 @@ try {
 
 // Validate against the shared input schema (unless skipped).
 if (!values['skip-validation']) {
-  const schemaPath = resolve(import.meta.dirname, '../input_json_schema.json');
-  const schema = JSON.parse(await readFile(schemaPath, 'utf8'));
   const ajv = new Ajv({ allErrors: true, strict: false });
   addFormats(ajv);
   // Remove meta-schema properties that AJV doesn't need for validation.
-  const schemaForValidation = { ...schema };
+  const schemaForValidation: Record<string, unknown> = { ...schema };
   delete schemaForValidation.$schema;
   delete schemaForValidation.$id;
   const validate = ajv.compile(schemaForValidation);

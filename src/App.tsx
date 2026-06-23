@@ -5,8 +5,8 @@ import GitHubIcon from './components/GitHubIcon';
 import { Spec } from './types';
 import TemplateSelector from './components/TemplateSelector';
 
-import '@rijkshuisstijl-community/design-tokens/dist/index.css'; // design tokens importeren
-import '@rijkshuisstijl-community/components-css/dist/index.css'; // css importeren
+// import '@rijkshuisstijl-community/design-tokens/dist/index.css'; // design tokens importeren
+// import '@rijkshuisstijl-community/components-css/dist/index.css'; // css importeren
 
 interface Props {
   spec: Spec;

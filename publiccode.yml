@@ -1,6 +1,6 @@
 publiccodeYmlVersion: "0.5"
 
-name: Repo generator
+name: Repo Docs Generator
 url: https://github.com/developer-overheid-nl/repo-docs-generator
 landingURL: https://developer-overheid-nl.github.io/repo-docs-generator/
 
@@ -8,32 +8,41 @@ softwareType: standalone/web
 
 platforms:
   - web
+  - linux
+  - mac
+  - windows
 
 developmentStatus: development
 
 description:
   nl:
     shortDescription: >-
-      Een webtool om repositories te voorzien van een publiccode.yml en de
-      juiste markdown files.
+      Een webtool en CLI om repositories te voorzien van een publiccode.yml
+      en de juiste markdown bestanden.
     longDescription: |
-      De Repo Generator is een webapplicatie waarmee ontwikkelaars eenvoudig
-      een publiccode.yml bestand kunnen genereren dat voldoet aan de
-      Nederlandse standaard. Daarnaast kunnen ook andere benodigde bestanden
-      voor een gezonde en toegankelijke repository worden gegenereerd.
+      De Repo Docs Generator is een webapplicatie en CLI-tool waarmee
+      ontwikkelaars eenvoudig een publiccode.yml bestand kunnen genereren
+      dat voldoet aan de Nederlandse standaard. Daarnaast kunnen ook andere
+      benodigde bestanden voor een gezonde en toegankelijke repository worden
+      gegenereerd, zoals README.md, SECURITY.md en CODE_OF_CONDUCT.md. De
+      CLI-tool gebruikt dezelfde templates en validatie als de web-app en
+      werkt op basis van een input-JSON-bestand.
   en:
     shortDescription: >-
-      A web tool to provide repositories with a publiccode.yml and the correct
-      markdown files.
+      A web app and CLI to provide repositories with a publiccode.yml and
+      the correct markdown files.
     longDescription: |
-      The Repo Generator is a web application that allows developers to easily
-      generate a publiccode.yml file that complies with the Dutch standard. In
-      addition, other required files for a healthy and accessible repository
-      can also be generated.
+      The Repo Docs Generator is a web application and CLI tool that allows
+      developers to easily generate a publiccode.yml file that complies with
+      the Dutch standard. In addition, other required files for a healthy and
+      accessible repository can also be generated, such as README.md,
+      SECURITY.md and CODE_OF_CONDUCT.md. The CLI tool uses the same
+      templates and validation as the web app and works from an input JSON
+      file.
 
 legal:
   license: EUPL-1.2
-  mainCopyrightOwner: Geonovum
+  mainCopyrightOwner: developer.overheid.nl
 
 intendedAudience:
   countries:
@@ -51,4 +60,4 @@ maintenance:
   type: community
   contacts:
     - name: developer.overheid.nl
-      email: info@geonovum.nl
+      email: developer.overheid@geonovum.nl

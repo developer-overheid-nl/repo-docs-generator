@@ -4,6 +4,8 @@ This repository contains a web-app which generates different files that are need
 
 URL: https://developer-overheid-nl.github.io/repo-docs-generator/
 
+De gegenereerde bestanden zijn gebaseerd op de templates uit [developer-overheid-nl/repository-template](https://github.com/developer-overheid-nl/repository-template/).
+
 ## Development
 
 Prepare your local environment:

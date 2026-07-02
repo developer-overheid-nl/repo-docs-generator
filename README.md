@@ -65,7 +65,7 @@ Opties:
 | `-t, --template <name>` | Genereer alleen het opgegeven template (herhaalbaar) |
 | `--ref <branch>` | Branch/ref van de template-repository (default: `main`) |
 | `--skip-validation` | Sla de schema-validatie van de input over |
-| `--init` | Schrijf een voorbeeld input-bestand weg en stop (positional argument is het doelpad, default `input.json`) |
+| `--init` | Schrijf een voorbeeld input-bestand weg (default `input.json`) |
 | `--force` | Overschrijf een bestaand bestand bij gebruik van `--init` |
 | `-l, --list` | Toon de beschikbare templates |
 | `-h, --help` | Toon de helptekst |

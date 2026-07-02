@@ -31,6 +31,9 @@ validatie als de web-app.
 Je kunt de generator direct vanaf GitHub draaien met `npx`:
 
 ```bash
+# Genereer eerst een voorbeeld input.json om als startpunt te gebruiken
+npx github:developer-overheid-nl/repo-docs-generator --init
+
 npx github:developer-overheid-nl/repo-docs-generator input.json -o ./generated
 ```
 
@@ -62,8 +65,10 @@ Opties:
 | `-t, --template <name>` | Genereer alleen het opgegeven template (herhaalbaar) |
 | `--ref <branch>` | Branch/ref van de template-repository (default: `main`) |
 | `--skip-validation` | Sla de schema-validatie van de input over |
+| `--init` | Schrijf een voorbeeld input-bestand weg en stop (positional argument is het doelpad, default `input.json`) |
+| `--force` | Overschrijf een bestaand bestand bij gebruik van `--init` |
 | `-l, --list` | Toon de beschikbare templates |
 | `-h, --help` | Toon de helptekst |
 
-Het input-bestand wordt gevalideerd tegen `input_json_schema.json`. Zie
-`src/inputExample.json` voor een voorbeeld.
+Het input-bestand wordt gevalideerd tegen `input_json_schema.json`. Gebruik
+`--init` om een voorbeeldbestand te genereren, of bekijk `src/inputExample.json`.

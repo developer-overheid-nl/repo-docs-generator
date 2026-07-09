@@ -83,6 +83,10 @@
         ]
       }
     },
+    "welcomingContributions": {
+      "description": "This key determines whether the project welcomes contributions.",
+      "type":"boolean"
+    },
     "features": {
       "type": "array"
     }

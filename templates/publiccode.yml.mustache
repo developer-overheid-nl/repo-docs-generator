@@ -2,7 +2,7 @@
 # metadata file that makes public software easily discoverable.
 # More info at https://github.com/publiccodeyml/publiccode.yml
 
-publiccodeYmlVersion: "0.5"
+publiccodeYmlVersion: "0.7"
 
 # Dit veld bevat de korte naam van het project. Kies hier de naam waaronder het
 # project bekend is bij de meeste mensen.
@@ -82,3 +82,11 @@ maintenance:
         {{#affiliation}}affiliation: {{ affiliation }}{{/affiliation}}
         {{#phone}}phone: {{ phone }}{{/phone}}
       {{/contacts}}
+
+{{#supports.0}}
+# Standaarden, regelgeving of kaders waar dit project aan voldoet.
+supports:
+{{/supports.0}}
+{{#supports}}
+  - id: {{ id }}
+{{/supports}}

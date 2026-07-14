@@ -19,9 +19,10 @@ const rootLevelVariables = (template: string): string[] => {
   const tokens = Mustache.parse(template);
   const names = new Set<string>();
   for (const [type, value] of tokens) {
-    if (TAG_TYPES_TO_CHECK.has(type) && value !== '.') {
-      names.add(value);
-    }
+    if (!TAG_TYPES_TO_CHECK.has(type) || value === '.') continue;
+    // Dotted paths (e.g. "supports.0", used to guard an array-section header)
+    // still resolve against the root context, so only the first segment matters.
+    names.add(value.split('.')[0]);
   }
   return [...names];
 };

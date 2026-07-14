@@ -34,5 +34,10 @@
   "features": [
     "Kennisbank",
     "Blog"
+  ],
+  "supports": [
+    {
+      "id": "https://www.forumstandaardisatie.nl/open-standaarden/digitoegankelijk-en-301-549-met-wcag-21"
+    }
   ]
 }

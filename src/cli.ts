@@ -6,7 +6,6 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import parseOutput from './populateOutputFile.ts';
 import templates from './templates.ts';
-import { templateUrl } from './templateSource.ts';
 import schema from '../input_json_schema.json' with { type: 'json' };
 import inputExample from './inputExample.json' with { type: 'json' };
 
@@ -23,7 +22,6 @@ Options:
   -o, --out <dir>        Output directory (default: "output")
   -t, --template <name>  Only generate the given template (repeatable).
                          Defaults to all templates.
-      --ref <branch>     Template repository branch/ref (default: "main")
       --skip-validation  Do not validate the input against the JSON schema
       --init             Write an example input JSON file and exit
       --force            Overwrite an existing file when used with --init
@@ -48,7 +46,6 @@ const { values, positionals } = parseArgs({
   options: {
     out: { type: 'string', short: 'o', default: 'output' },
     template: { type: 'string', short: 't', multiple: true },
-    ref: { type: 'string', default: 'main' },
     'skip-validation': { type: 'boolean', default: false },
     init: { type: 'boolean', default: false },
     force: { type: 'boolean', default: false },
@@ -131,20 +128,16 @@ if (!values['skip-validation']) {
   }
 }
 
-// Fetch each template, render it and write the result.
+// Read each local template, render it and write the result.
 const outDir = resolve(values.out);
 await mkdir(outDir, { recursive: true });
 
 let failures = 0;
 await Promise.all(
   selected.map(async (name) => {
-    const url = templateUrl(name, values.ref);
+    const templatePath = new URL(`../templates/${name}.mustache`, import.meta.url);
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status} for ${url}`);
-      }
-      const template = await response.text();
+      const template = await readFile(templatePath, 'utf8');
       const rendered = parseOutput(inputJson!, template);
       const destination = join(outDir, name);
       await writeFile(destination, rendered, 'utf8');

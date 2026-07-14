@@ -4,7 +4,8 @@ This repository contains a web-app which generates different files that are need
 
 URL: https://developer-overheid-nl.github.io/repo-docs-generator/
 
-De gegenereerde bestanden zijn gebaseerd op de templates uit [developer-overheid-nl/repository-template](https://github.com/developer-overheid-nl/repository-template/).
+## Templates
+De gegenereerde bestanden zijn gebaseerd op de templates in de [`templates/`](./templates) map van deze repository.
 
 ## Development
 
@@ -63,7 +64,6 @@ Opties:
 | --- | --- |
 | `-o, --out <dir>` | Output-map (default: `output`) |
 | `-t, --template <name>` | Genereer alleen het opgegeven template (herhaalbaar) |
-| `--ref <branch>` | Branch/ref van de template-repository (default: `main`) |
 | `--skip-validation` | Sla de schema-validatie van de input over |
 | `--init` | Schrijf een voorbeeld input-bestand weg (default `input.json`) |
 | `--force` | Overschrijf een bestaand bestand bij gebruik van `--init` |

@@ -83,12 +83,22 @@
         ]
       }
     },
-    "welcomingContributions": {
-      "description": "This key determines whether the project welcomes contributions.",
-      "type":"boolean"
-    },
     "features": {
       "type": "array"
+    },
+    "supports": {
+      "description": "A list of standards, regulations, frameworks or systems the project supports or complies with, per the publiccode.yml standard (v0.7).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "An identifier for the supported standard, regulation, framework or system. Either an alias in the form \"alias:<name>\" (e.g. \"alias:gdpr\"), resolved through the publiccode.yml aliases list, or any other valid URI (URL or URN) referencing the resource directly."
+          }
+        },
+        "required": ["id"]
+      }
     }
   },
   "additionalProperties": true,

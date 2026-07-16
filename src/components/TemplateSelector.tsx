@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import templates from '../templates';
-import { templateUrl } from '../templateSource';
+import templateContents from '../templateContents';
 
 interface Props {
   className?: string;
@@ -12,19 +12,10 @@ const TemplateSelector: FC<Props> = ({ className, setGitTemplate }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-    useEffect(() => {
-
-      const url = templateUrl(location.pathname.replace(/^\//, ''));
-
-      fetch(url)
-        .then(response => response.text())
-        .then(text => {
-          setGitTemplate(text)
-        })
-        .catch(error => {
-          console.error('Failed to fetch template:', error)
-        });
-    }, [location.pathname, setGitTemplate]);
+  useEffect(() => {
+    const templateName = location.pathname.replace(/^\//, '');
+    setGitTemplate(templateContents[templateName] ?? null);
+  }, [location.pathname, setGitTemplate]);
 
   return (
     <select value={location.pathname} onChange={event => navigate(event.target.value)} className={className}>

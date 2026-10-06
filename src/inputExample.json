@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/developer-overheid-nl/repo-docs-generator/main/input_json_schema.json",
   "name": "Website developer.overheid.nl",
   "shortDescription": "Developer Overheid NL is de wegwijzer voor developers die voor of bij de overheid ontwikkelen.",
   "longDescription": "Developer Overheid NL is de wegwijzer voor developers die voor of bij de overheid ontwikkelen. Zij vervult deze rol door het aanbieden van standaarden, best practices en tools.",

@@ -20,6 +20,11 @@ claude plugin install developer-overheid-open-source-repo@overheid-plugins
 
 De skill zelf staat in [`skills/open-source-repo/`](./skills/open-source-repo).
 
+Het plugin-manifest staat in drie varianten: `.plugin/plugin.json` is de bron van
+waarheid, `.claude-plugin/plugin.json` en `.cursor-plugin/plugin.json` zijn daarvan
+afgeleid (Cursor vraagt een extra `displayName`). Werk je de versie of beschrijving
+bij, pas dan alle drie aan; de marketplace controleert of ze bestaan.
+
 ## Templates
 De gegenereerde bestanden zijn gebaseerd op de templates in de [`templates/`](./templates) map van deze repository.
 

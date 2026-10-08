@@ -23,3 +23,6 @@ bin
 *.njsproj
 *.sln
 *.sw?
+
+# Door de CLI gegenereerde input (bevat contactgegevens)
+input.json

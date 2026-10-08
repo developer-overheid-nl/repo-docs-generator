@@ -4,6 +4,27 @@ This repository contains a web-app which generates different files that are need
 
 URL: https://developer-overheid-nl.github.io/repo-docs-generator/
 
+## Agent Skill
+
+Deze repository bevat ook een Agent Skill die de CLI aanroept, zodat een
+AI-assistent een repository klaar kan maken voor open source. De skill leest het
+project uit, vult `input.json` en draait de generator; het formaat van de
+bestanden blijft daarmee volledig bepaald door de templates in deze repo.
+
+Installeren via de marketplace van developer.overheid.nl:
+
+```bash
+claude plugin marketplace add developer-overheid-nl/skills-marketplace
+claude plugin install developer-overheid-open-source-repo@overheid-plugins
+```
+
+De skill zelf staat in [`skills/open-source-repo/`](./skills/open-source-repo).
+
+Het plugin-manifest staat in drie varianten: `.plugin/plugin.json` is de bron van
+waarheid, `.claude-plugin/plugin.json` en `.cursor-plugin/plugin.json` zijn daarvan
+afgeleid (Cursor vraagt een extra `displayName`). Werk je de versie of beschrijving
+bij, pas dan alle drie aan; de marketplace controleert of ze bestaan.
+
 ## Templates
 De gegenereerde bestanden zijn gebaseerd op de templates in de [`templates/`](./templates) map van deze repository.
 

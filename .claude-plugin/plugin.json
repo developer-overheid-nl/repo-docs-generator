@@ -1,0 +1,5 @@
+{
+  "name": "developer-overheid-open-source-repo",
+  "version": "0.2.0",
+  "description": "Maak een repository klaar voor open source: vul input.json en genereer README, LICENSE, SECURITY, CODE_OF_CONDUCT, CONTRIBUTING, CHANGELOG en publiccode.yml met de repo-docs-generator CLI."
+}

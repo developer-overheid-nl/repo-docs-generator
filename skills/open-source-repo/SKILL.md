@@ -129,23 +129,29 @@ niet geïnstalleerd is, draai hem via `uvx reuse` of `pipx run reuse`.
    Laat de gegenereerde `LICENSE.md` in de root staan; de tool negeert dat
    bestand en GitHub gebruikt het om de licentie te tonen.
 
-2. Leg copyright en licentie per bestand vast. Gebruik bij voorkeur een
-   `REUSE.toml` in de root, zodat je geen headers in alle bestanden hoeft te
-   zetten:
+2. Leg copyright en licentie per bestand vast in `REUSE.toml`. De generator
+   maakt dit bestand in stap 3 aan met één blok dat alle bestanden onder
+   `legal.mainCopyrightOwner` en EUPL-1.2 plaatst:
 
    ```toml
    version = 1
 
    [[annotations]]
    path = "**"
-   SPDX-FileCopyrightText = "<jaar> <legal.mainCopyrightOwner>"
+   SPDX-FileCopyrightText = "<mainCopyrightOwner>"
    SPDX-License-Identifier = "EUPL-1.2"
    ```
 
+   Bestaat er al een `REUSE.toml`, werk die dan bij in plaats van hem te
+   overschrijven.
+
    Staat er code van derden in de repository (vendored libraries, gekopieerde
-   bestanden), geef die dan een eigen `[[annotations]]`-blok met de licentie en
-   copyrighthouder van de oorspronkelijke bron, en download die licentie ook
-   met `reuse download`. Heeft een bestand al een SPDX-header, laat die staan.
+   bestanden), voeg dan onder het gegenereerde blok een eigen
+   `[[annotations]]`-blok toe met de licentie en copyrighthouder van de
+   oorspronkelijke bron, en download die licentie ook met `reuse download`.
+   Een later blok gaat voor een eerder blok, dus dit blok overschrijft het
+   algemene blok voor die bestanden. Heeft een bestand al een SPDX-header,
+   laat die staan.
 
 3. Controleer dat `LICENSE.md` expliciet vermeldt dat het project REUSE
    volgt. De template van de generator zet deze alinea direct onder de regel

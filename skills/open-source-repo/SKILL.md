@@ -3,12 +3,16 @@ name: open-source-repo
 description: >-
   Maak een repository klaar voor open source: genereer README, LICENSE,
   SECURITY.md, CODE_OF_CONDUCT.md, CONTRIBUTING.md, CHANGELOG.md en
-  publiccode.yml met de repo-docs-generator CLI. Gebruik deze skill wanneer de
+  publiccode.yml met de repo-docs-generator CLI, en maak de licentie-informatie
+  REUSE-compliant. Gebruik deze skill wanneer de
   gebruiker een repository open source wil publiceren, ontbrekende bestanden wil
   toevoegen, een publiccode.yml wil aanmaken of bijwerken, of een project wil
   klaarmaken voor publieke bijdragen. Voorbeelden: "maak dit project open
   source", "open source checklist", "publiccode.yml genereren", "voeg een
-  SECURITY.md toe", "voeg een licentie toe", "Standard for Public Code".
+  SECURITY.md toe", "voeg een licentie toe", "Standard for Public Code",
+  "REUSE".
+metadata:
+  author: Tom Ootes <tom@ootes.io>
 allowed-tools:
   - Read
   - Write
@@ -20,6 +24,9 @@ allowed-tools:
   - Bash(git *)
   - Bash(npx *)
   - Bash(curl *)
+  - Bash(pipx *)
+  - Bash(uvx *)
+  - Bash(reuse *)
   - Bash(find *)
   - WebFetch(*)
   - AskUserQuestion
@@ -105,9 +112,70 @@ npx github:developer-overheid-nl/repo-docs-generator input.json -t publiccode.ym
 Vergelijk het resultaat met wat er al in de repository staat voordat je iets
 overschrijft, en leg de gegenereerde bestanden daarna op hun plek in de root.
 
+## Stap 4: maak de repository REUSE-compliant
+
+Elke repository moet de [REUSE-specificatie](https://reuse.software/spec/)
+volgen, zodat van ieder bestand machineleesbaar vastligt onder welke licentie
+het valt en wie de auteursrechthebbende is. Gebruik de `reuse`-tool; als die
+niet geïnstalleerd is, draai hem via `uvx reuse` of `pipx run reuse`.
+
+1. Zet de licentietekst in `LICENSES/`, met de SPDX-identifier uit
+   `legal.license` als bestandsnaam:
+
+   ```bash
+   reuse download EUPL-1.2
+   ```
+
+   Laat de gegenereerde `LICENSE.md` in de root staan; de tool negeert dat
+   bestand en GitHub gebruikt het om de licentie te tonen.
+
+2. Leg copyright en licentie per bestand vast. Gebruik bij voorkeur een
+   `REUSE.toml` in de root, zodat je geen headers in alle bestanden hoeft te
+   zetten:
+
+   ```toml
+   version = 1
+
+   [[annotations]]
+   path = "**"
+   SPDX-FileCopyrightText = "<jaar> <legal.mainCopyrightOwner>"
+   SPDX-License-Identifier = "EUPL-1.2"
+   ```
+
+   Staat er code van derden in de repository (vendored libraries, gekopieerde
+   bestanden), geef die dan een eigen `[[annotations]]`-blok met de licentie en
+   copyrighthouder van de oorspronkelijke bron, en download die licentie ook
+   met `reuse download`. Heeft een bestand al een SPDX-header, laat die staan.
+
+3. Controleer dat `LICENSE.md` expliciet vermeldt dat het project REUSE
+   volgt. De template van de generator zet deze alinea direct onder de regel
+   `Licensed under the EUPL.`:
+
+   ```markdown
+   This project follows the [REUSE specification](https://reuse.software/spec/).
+   The copyright and license of each file are recorded in `REUSE.toml` or in
+   the file's SPDX header, and the full license texts are in the `LICENSES/`
+   directory.
+   ```
+
+   Ontbreekt de alinea, bijvoorbeeld omdat `LICENSE.md` niet door de generator
+   is gemaakt, voeg hem dan op die plek toe.
+
+4. Controleer het resultaat:
+
+   ```bash
+   reuse lint
+   ```
+
+   Los elke melding op tot de repository compliant is. Stel de gebruiker voor
+   om dezelfde controle in CI te draaien, bijvoorbeeld met de GitHub Action
+   [`fsfe/reuse-action`](https://github.com/fsfe/reuse-action).
+
 ## Referenties
 
 - [publiccode.yml schemadocumentatie](https://yml.publiccode.tools/schema.core.html)
 - [Categorielijst](https://yml.publiccode.tools/categories-list.html)
 - [SPDX licentie-identifiers](https://spdx.org/licenses/)
 - [Standard for Public Code](https://standard.publiccode.net/)
+- [REUSE-specificatie](https://reuse.software/spec/)
+- [REUSE-tutorial](https://reuse.software/tutorial/)

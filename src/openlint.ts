@@ -1,6 +1,6 @@
 import { linter } from '@codemirror/lint';
-import { Document, RulesetDefinition, Spectral } from '@stoplight/spectral-core';
-import { Json } from '@stoplight/spectral-parsers';
+import { Document, RulesetDefinition, OpenLint } from '@openlint/openlint-core';
+import { Json } from '@openlint/openlint-parsers';
 import { DiagnosticSeverity } from '@stoplight/types';
 import { Extension } from '@uiw/react-codemirror';
 import { Severity } from './types';
@@ -22,15 +22,15 @@ const mapSeverity = (severity: DiagnosticSeverity): Severity => {
   }
 };
 
-export const spectralLinter = (name: string, ruleset: RulesetDefinition): Extension => {
-  const spectral = new Spectral();
+export const openLintLinter = (name: string, ruleset: RulesetDefinition): Extension => {
+  const openLint = new OpenLint();
 
-  spectral.setRuleset(ruleset);
+  openLint.setRuleset(ruleset);
 
   return linter(async view => {
     const doc = view.state.doc;
     const document = new Document(doc.toString(), Json);
-    const violations = await spectral.run(document);
+    const violations = await openLint.run(document);
 
     return violations.map(violation => ({
       source: name,

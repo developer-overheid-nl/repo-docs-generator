@@ -1,5 +1,5 @@
-import type { RulesetDefinition } from '@stoplight/spectral-core';
-import { schema } from '@stoplight/spectral-functions';
+import type { RulesetDefinition } from '@openlint/openlint-core';
+import { schema } from '@openlint/openlint-functions';
 
 export const GEN_URI = 'https://developer-overheid-nl.github.io/repo-docs-generator';
 

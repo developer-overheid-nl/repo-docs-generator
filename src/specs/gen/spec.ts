@@ -1,5 +1,5 @@
 import { APPLICATION_JSON_TYPE, APPLICATION_OPENAPI_JSON_3_0_TYPE } from '../../constants';
-import { spectralLinter } from '../../spectral';
+import { openLintLinter } from '../../openlint';
 import { Spec, SpecLinter, SpecResponseMapper } from '../../types';
 import { handleResponse, handleResponseJson } from '../../util';
 import example from '../../inputExample.json';
@@ -43,7 +43,7 @@ const responseMapper: SpecResponseMapper = async responseText => {
             if (typeof reqClass === 'string' && rulesets[reqClass]) {
               linters.push({
                 name: reqClass,
-                linter: spectralLinter(reqClass, rulesets[reqClass]),
+                linter: openLintLinter(reqClass, rulesets[reqClass]),
               });
             }
           });

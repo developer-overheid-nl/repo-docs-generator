@@ -1,4 +1,4 @@
-import { RulesetFunction } from '@stoplight/spectral-core';
+import { RulesetFunction } from '@openlint/openlint-core';
 
 export const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
 

@@ -1,5 +1,5 @@
 import { Diagnostic } from '@codemirror/lint';
-import { IFunctionResult, RulesetFunctionContext } from '@stoplight/spectral-core';
+import { IFunctionResult, RulesetFunctionContext } from '@openlint/openlint-core';
 import mergeAllOf from 'json-schema-merge-allof';
 import nimma from 'nimma';
 import { last } from 'ramda';

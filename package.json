@@ -29,7 +29,7 @@
     "@codemirror/lint": "^6.9.7",
     "@codemirror/view": "^6.43.15",
     "@openlint/openlint-core": "^0.1.1",
-    "@openlint/openlint-functions": "^0.1.0",
+    "@openlint/openlint-functions": "^0.2.0",
     "@openlint/openlint-parsers": "^1.0.0",
     "@stoplight/better-ajv-errors": "^1.0.3",
     "@stoplight/types": "^14.1.1",
@@ -66,7 +66,7 @@
     "ramda": "^0.32.0",
     "tailwindcss": "^4.3.5",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.72.1",
+    "typescript-eslint": "^8.72.2",
     "vite": "^7.2.7",
     "vitest": "^3.1.2"
   },

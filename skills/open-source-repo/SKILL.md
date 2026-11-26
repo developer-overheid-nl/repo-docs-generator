@@ -1,7 +1,7 @@
 ---
 name: open-source-repo
 description: >-
-  Maak een repository klaar voor open source: genereer README, LICENSE,
+  Zorg dat een repository toegankelijk is voor open source bijdragen: genereer een README, LICENSE,
   SECURITY.md, CODE_OF_CONDUCT.md, CONTRIBUTING.md, CHANGELOG.md en
   publiccode.yml met de repo-docs-generator CLI, en maak de licentie-informatie
   REUSE-compliant. Gebruik deze skill wanneer de
@@ -44,6 +44,26 @@ er bestaan.
 informatie uit de repository en daarna de CLI draaien. Dat scheelt niet alleen
 werk, het voorkomt ook dat een met de hand geschreven `publiccode.yml` afwijkt
 van wat de officiële tool oplevert.
+
+## Blijf adviseren
+
+Je bent niet alleen degene die de bestanden genereert, maar ook een adviseur
+die meedenkt over de documentatie van het project. Geef tijdens alle stappen
+uit jezelf advies, ook als de gebruiker er niet om vraagt:
+
+- Benoem wat ontbreekt of onduidelijk is: een README die niet uitlegt wat het
+  project doet, geen contactadres voor securitymeldingen, geen tests of CI om
+  in `CONTRIBUTING.md` te noemen.
+- Wijs op tegenstrijdigheden tussen bestanden, zoals een andere licentie in
+  `package.json` dan in `LICENSE`, of een README die naar een bestand verwijst
+  dat niet bestaat.
+- Doe concrete voorstellen en zeg waarom ze het project helpen. Voer ze pas uit
+  als de gebruiker akkoord is.
+- Houd het overzichtelijk: geef advies op het moment dat het speelt, en niet
+  alles in één keer.
+
+Sluit af met een kort overzicht van het advies dat nog openstaat, zodat de
+gebruiker weet wat er nog te verbeteren valt.
 
 ## Stap 1: maak een voorbeeld-input
 
@@ -112,7 +132,24 @@ npx github:developer-overheid-nl/repo-docs-generator input.json -t publiccode.ym
 Vergelijk het resultaat met wat er al in de repository staat voordat je iets
 overschrijft, en leg de gegenereerde bestanden daarna op hun plek in de root.
 
-## Stap 4: maak de repository REUSE-compliant
+## Stap 4: maak de bestanden projectspecifiek
+
+Lees [`references/bestanden.md`](references/bestanden.md). Daarin staat per
+bestand wat het doel is, voor wie het is, wat erin hoort en wat juist in een
+ander bestand hoort. Gebruik die informatie om:
+
+- de onderdelen onder **Aanvullen** in te vullen, zoals de secties met
+  **PROJECTSPECIFIEK** en de verzonnen voorbeeldversies in `CHANGELOG.md`.
+  Haal de informatie uit het project en vraag de gebruiker wat je niet kunt
+  vinden;
+- bestaande inhoud op de juiste plek te zetten. Staat er in de bestaande README
+  bijvoorbeeld een sectie over de ontwikkelomgeving, stel de gebruiker dan voor
+  die naar `CONTRIBUTING.md` te verplaatsen. Verplaats niets zonder dat te
+  melden;
+- de gebruiker te adviseren over wat waar hoort, ook als die er niet om vraagt
+  (zie [Blijf adviseren](#blijf-adviseren)).
+
+## Stap 5: maak de repository REUSE-compliant
 
 Elke repository moet de [REUSE-specificatie](https://reuse.software/spec/)
 volgen, zodat van ieder bestand machineleesbaar vastligt onder welke licentie

@@ -1,52 +1,49 @@
 # Repo generator
 
-This repository contains a web-app which generates different files that are needed for a healthy and accessible repository.
+Genereer de bestanden die nodig zijn voor een gezonde, toegankelijke en open
+source repository: `README.md`, `LICENSE`, `SECURITY.md`, `CODE_OF_CONDUCT.md`,
+`CONTRIBUTING.md`, `CHANGELOG.md`, `publiccode.yml` en meer.
 
-URL: https://developer-overheid-nl.github.io/repo-docs-generator/
+## Drie tools in één repository
 
-## Agent Skill
+Dit project bevat **drie tools**. Ze gebruiken alle drie dezelfde
+[templates](./templates) en dezelfde validatie, dus de uitkomst is gelijk,
+welke je ook kiest.
 
-Deze repository bevat ook een Agent Skill die de CLI aanroept, zodat een
-AI-assistent een repository klaar kan maken voor open source. De skill leest het
-project uit, vult `input.json` en draait de generator; het formaat van de
-bestanden blijft daarmee volledig bepaald door de templates in deze repo.
+| # | Tool | Voor wie | Hoe gebruik je het |
+| --- | --- | --- | --- |
+| 1 | [**Web-UI**](#1-web-ui) | Mensen die een formulier willen invullen in de browser | <https://developer-overheid-nl.github.io/repo-docs-generator/> |
+| 2 | [**CLI**](#2-cli) | Ontwikkelaars en CI-pipelines | `npx github:developer-overheid-nl/repo-docs-generator input.json` |
+| 3 | [**Agent Skill**](#3-agent-skill) | AI-assistenten (Claude Code, Cursor, …) | `claude plugin install developer-overheid-open-source-repo@overheid-plugins` |
 
-Installeren via de marketplace van developer.overheid.nl:
-
-```bash
-claude plugin marketplace add developer-overheid-nl/skills-marketplace
-claude plugin install developer-overheid-open-source-repo@overheid-plugins
+```text
+            templates/  +  input_json_schema.json
+                         │
+      ┌──────────────────┼──────────────────┐
+      ▼                  ▼                  ▼
+  1. Web-UI           2. CLI  ◄──────  3. Agent Skill
+  (browser)       (command line)     (roept de CLI aan)
 ```
 
-De skill zelf staat in [`skills/open-source-repo/`](./skills/open-source-repo).
+---
 
-Het plugin-manifest staat in drie varianten: `.plugin/plugin.json` is de bron van
-waarheid, `.claude-plugin/plugin.json` en `.cursor-plugin/plugin.json` zijn daarvan
-afgeleid (Cursor vraagt een extra `displayName`). Werk je de versie of beschrijving
-bij, pas dan alle drie aan; de marketplace controleert of ze bestaan.
+## 1. Web-UI
 
-## Templates
-De gegenereerde bestanden zijn gebaseerd op de templates in de [`templates/`](./templates) map van deze repository.
+Een web-app waarin je via een formulier de gegevens van je project invult en
+de bestanden direct downloadt.
 
-## Development
+**URL:** <https://developer-overheid-nl.github.io/repo-docs-generator/>
 
-Prepare your local environment:
+De broncode staat in [`src/`](./src). Zie [Development](#development) om de
+web-app lokaal te draaien.
 
-- Install project dependencies: `pnpm install`
-- Install VSCode extensions: Prettier, ESLint, Tailwind CSS IntelliSense
-- Set VSCode default formatter to `esbenp.prettier-vscode`
+---
 
-Start the development server:
+## 2. CLI
 
-```bash
-pnpm run dev
-```
-
-## CLI
-
-Naast de web-app kun je de documenten ook vanaf de command line genereren op
-basis van een input-JSON-bestand. De CLI gebruikt dezelfde templates en
-validatie als de web-app.
+Genereer de documenten vanaf de command line op basis van een
+input-JSON-bestand. De CLI gebruikt dezelfde templates en validatie als de
+web-UI. De broncode staat in [`src/cli.ts`](./src/cli.ts).
 
 ### Via npx (zonder clonen)
 
@@ -79,7 +76,7 @@ pnpm generate input.json -t README.md -t SECURITY.md
 > vereist Node 24 (`nvm use 24`). De npx-variant bouwt eerst een bundel en
 > heeft die eis niet.
 
-Opties:
+### Opties
 
 | Optie | Omschrijving |
 | --- | --- |
@@ -93,3 +90,48 @@ Opties:
 
 Het input-bestand wordt gevalideerd tegen `input_json_schema.json`. Gebruik
 `--init` om een voorbeeldbestand te genereren, of bekijk `src/inputExample.json`.
+
+---
+
+## 3. Agent Skill
+
+Een Agent Skill waarmee een AI-assistent een repository klaar kan maken voor
+open source. De skill leest het project uit, vult `input.json` en draait de
+[CLI](#2-cli); het formaat van de bestanden blijft daarmee volledig bepaald
+door de templates in deze repo.
+
+Installeren via de marketplace van developer.overheid.nl:
+
+```bash
+claude plugin marketplace add developer-overheid-nl/skills-marketplace
+claude plugin install developer-overheid-open-source-repo@overheid-plugins
+```
+
+De skill zelf staat in [`skills/open-source-repo/`](./skills/open-source-repo).
+
+Het plugin-manifest staat in drie varianten: `.plugin/plugin.json` is de bron van
+waarheid, `.claude-plugin/plugin.json` en `.cursor-plugin/plugin.json` zijn daarvan
+afgeleid (Cursor vraagt een extra `displayName`). Werk je de versie of beschrijving
+bij, pas dan alle drie aan; de marketplace controleert of ze bestaan.
+
+---
+
+## Templates
+
+De gegenereerde bestanden zijn gebaseerd op de templates in de
+[`templates/`](./templates) map van deze repository. Een wijziging in een
+template geldt direct voor alle drie de tools.
+
+## Development
+
+Prepare your local environment:
+
+- Install project dependencies: `pnpm install`
+- Install VSCode extensions: Prettier, ESLint, Tailwind CSS IntelliSense
+- Set VSCode default formatter to `esbenp.prettier-vscode`
+
+Start the development server:
+
+```bash
+pnpm run dev
+```
